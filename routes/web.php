@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,5 @@ Route::get('demo-cache', function(){
     // echo Cache::get('domain');
     echo Cache::get('course');
 });
+
+Route::get('product/{id}',[ProductController::class, 'getProduct'])->name('getProduct');
