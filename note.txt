@@ -1,0 +1,7 @@
+LARAVEL CACHE
+
+- Cache config
+- Cache route
+- Cache view
+- Cache application
+- Cache event
