@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('demo-cache', function(){
+    // Cache::put('domain', 'unicode.vn', '600');
+    // Cache::put('course', 'LARAVEL ONLINE', '600');
+    // echo Cache::get('domain');
+    echo Cache::get('course');
 });
