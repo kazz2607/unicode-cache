@@ -50,11 +50,25 @@ class ProductController extends Controller
         $product->view_count++;
         $product->save();
 
-        Cache::increment('view' . $id);
-        $viewCount = Cache::remember('view' . $id, self::CACHE_LIFETIME, function () use ($product) {
+        Cache::increment('view_' . $id);
+
+        $viewCount = Cache::remember('view_' . $id, self::CACHE_LIFETIME, function () use ($product) {
             return $product->view_count;
         });
 
+        // $viewCount = Cache::pull('view' . $id);
+
         return view('products.detail', compact('product', 'viewCount'));
+    }
+
+    public function forgetCache($id){
+        $key1 = 'product_' . $id;
+        $key2 = 'view_' . $id;
+        Cache::forget($key1);
+        Cache::forget($key2);
+    }
+
+    public function flushCache(){
+        Cache::flush();
     }
 }
