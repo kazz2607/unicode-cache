@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -9,6 +10,33 @@ use Illuminate\Support\Facades\Cache;
 class ProductController extends Controller
 {
     const CACHE_LIFETIME = 900;
+
+    public function index()
+    {
+        // $value = Cache::remember('users', self::CACHE_LIFETIME, function(){
+        //     return [
+        //         'User 1',
+        //         'User 2',
+        //         'User 3',
+        //     ];
+        // });
+
+        // $value = cache('users');
+
+        $data = [
+            'User 1',
+            'User 2',
+            'User 3',
+        ];
+
+        // cache(['users' => $data], Carbon::now()->addSeconds(10));
+
+        $value = cache()->remember('users', self::CACHE_LIFETIME, function() use ($data){
+            return $data;
+        });
+
+        dd($value);
+    }
 
     public function getProduct($id)
     {
@@ -61,14 +89,16 @@ class ProductController extends Controller
         return view('products.detail', compact('product', 'viewCount'));
     }
 
-    public function forgetCache($id){
+    public function forgetCache($id)
+    {
         $key1 = 'product_' . $id;
         $key2 = 'view_' . $id;
         Cache::forget($key1);
         Cache::forget($key2);
     }
 
-    public function flushCache(){
+    public function flushCache()
+    {
         Cache::flush();
     }
 }

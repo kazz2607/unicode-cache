@@ -26,6 +26,8 @@ Route::get('demo-cache', function(){
     echo Cache::get('course');
 });
 
+Route::get('index',[ProductController::class, 'index'])->name('index');
+
 Route::get('product/{id}',[ProductController::class, 'getProduct'])->name('getProduct');
 
 Route::get('forget-cache/{id}',[ProductController::class, 'forgetCache'])->name('forget-cache');
