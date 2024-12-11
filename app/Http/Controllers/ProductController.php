@@ -29,6 +29,11 @@ class ProductController extends Controller
             'User 3',
         ];
 
+        // Cache::tags(['tag1', 'tag2'])->put('name', 'Unicode', self::CACHE_LIFETIME);
+        // Cache::tags(['tag1', 'tag2'])->put('age', '30', self::CACHE_LIFETIME);
+
+
+
         // cache(['users' => $data], Carbon::now()->addSeconds(10));
 
         $value = cache()->remember('users', self::CACHE_LIFETIME, function() use ($data){
